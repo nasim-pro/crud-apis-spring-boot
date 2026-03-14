@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.crud.apis.dto.LoginRequest;
 import com.crud.apis.model.User;
 import com.crud.apis.service.UserService;
 import org.springframework.http.HttpStatus;
-
 
 @RestController
 @RequestMapping("/users")
@@ -17,10 +17,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public User login(@RequestBody LoginRequest loginRequest) {
+        return userService.login(loginRequest.getEmail(), loginRequest.getPassword());
     }
 
     @GetMapping
@@ -35,7 +41,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public User updateUser(@PathVariable String id, @RequestBody User user) {
         return userService.updateUser(id, user);
@@ -47,4 +53,6 @@ public class UserController {
         userService.deleteUser(id);
         return "User deleted";
     }
+
+    
 }
