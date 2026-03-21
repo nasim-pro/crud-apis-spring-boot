@@ -20,7 +20,6 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User createUser(User user) {
-        
         String hashedpassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedpassword);
         System.out.println(user);
