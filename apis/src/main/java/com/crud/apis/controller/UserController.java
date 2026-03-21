@@ -20,6 +20,7 @@ public class UserController {
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public User createUser(@RequestBody User user) {
+        System.out.println(".......");
         return userService.createUser(user);
     }
 
